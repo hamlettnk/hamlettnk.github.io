@@ -18,15 +18,18 @@ function Home() {
   }
   return (
     <div className="home">
-      <div className="home-top-nav">
-        <button className="home-buttons" onClick={handleClick}>Blog</button>
-        <button className="home-buttons" onClick={goTools}>Tools</button>
-        <button className="home-buttons" onClick={goAbout}>About</button>
-      </div>
+      <button className="button" onClick={handleClick}>Blog</button>
+      <button className="button" onClick={goTools}>Tools</button>
+      <button className="button" onClick={goAbout}>About</button>
       <img className="home-logo" src={require("./images/termux-photo.jpg")} alt="logo" />
       <h1 className="logo-name">quarks</h1>
-      <button onClick={handleClick}>Learn Termux</button>
-    </div>
+      <button
+        className='button'
+        onClick={handleClick}
+      >
+        Learn Termux
+      </button>
+    </div >
   )
 }
 
@@ -36,15 +39,15 @@ function Tools() {
     navigate('/tools/calculator')
   }
   return (
-    <div>
-      <button onClick={goCalculator}>calculator</button>
+    <div className='home'>
+      <button className='button' onClick={goCalculator}>calculator</button>
     </div>
   )
 }
 
 function About() {
   return (
-    <div>
+    <div className='home'>
       <h1
         style={
           {
@@ -54,15 +57,6 @@ function About() {
       >
         About
       </h1>
-    </div>
-  )
-}
-
-
-function Posts() {
-  return (
-    <div className="whole-post">
-      <img src={require("./images/termux-photo-100x100.jpg")} alt="termux-photo" />
     </div>
   )
 }
@@ -88,12 +82,6 @@ export default function ABlogPost() {
           <h4 className="blog-command">apt upgrade</h4>
           click <Link to="/">here</Link> if you get errors on the above step.
         </p>
-      </div>
-      <div className="posts-list">
-        <Posts />
-        <Posts />
-        <Posts />
-        <Posts />
       </div>
 
     </div>
@@ -252,41 +240,43 @@ function formatOperand(operand) {
 function Calculator() {
   const [{ currentOperand, previousOperand, operation }, dispatch] = useReducer(reducer, {})
   return (
-    <div className="calculator-grid">
-      <div className="output">
-        <div className="previous-operand">
-          {formatOperand(previousOperand)} {operation}
+    <div className='home'>
+      <div className="calculator-grid">
+        <div className="output">
+          <div className="previous-operand">
+            {formatOperand(previousOperand)} {operation}
+          </div>
+          <div className="current-operand">{formatOperand(currentOperand)}</div>
         </div>
-        <div className="current-operand">{formatOperand(currentOperand)}</div>
+        <button
+          className="span-two"
+          onClick={() => dispatch({ type: ACTIONS.CLEAR })}
+        >
+          AC
+        </button>
+        <button onClick={() => dispatch({ type: ACTIONS.DELETE_DIGIT })}>DEL</button>
+        <OperationButton operation="÷" dispatch={dispatch} />
+        <DigitButton digit="1" dispatch={dispatch} />
+        <DigitButton digit="2" dispatch={dispatch} />
+        <DigitButton digit="3" dispatch={dispatch} />
+        <OperationButton operation="*" dispatch={dispatch} />
+        <DigitButton digit="4" dispatch={dispatch} />
+        <DigitButton digit="5" dispatch={dispatch} />
+        <DigitButton digit="6" dispatch={dispatch} />
+        <OperationButton operation="+" dispatch={dispatch} />
+        <DigitButton digit="7" dispatch={dispatch} />
+        <DigitButton digit="8" dispatch={dispatch} />
+        <DigitButton digit="9" dispatch={dispatch} />
+        <OperationButton operation="-" dispatch={dispatch} />
+        <DigitButton digit="." dispatch={dispatch} />
+        <DigitButton digit="0" dispatch={dispatch} />
+        <button
+          className="span-two"
+          onClick={() => dispatch({ type: ACTIONS.EVALUATE })}
+        >
+          =
+        </button>
       </div>
-      <button
-        className="span-two"
-        onClick={() => dispatch({ type: ACTIONS.CLEAR })}
-      >
-        AC
-      </button>
-      <button onClick={() => dispatch({ type: ACTIONS.DELETE_DIGIT })}>DEL</button>
-      <OperationButton operation="÷" dispatch={dispatch} />
-      <DigitButton digit="1" dispatch={dispatch} />
-      <DigitButton digit="2" dispatch={dispatch} />
-      <DigitButton digit="3" dispatch={dispatch} />
-      <OperationButton operation="*" dispatch={dispatch} />
-      <DigitButton digit="4" dispatch={dispatch} />
-      <DigitButton digit="5" dispatch={dispatch} />
-      <DigitButton digit="6" dispatch={dispatch} />
-      <OperationButton operation="+" dispatch={dispatch} />
-      <DigitButton digit="7" dispatch={dispatch} />
-      <DigitButton digit="8" dispatch={dispatch} />
-      <DigitButton digit="9" dispatch={dispatch} />
-      <OperationButton operation="-" dispatch={dispatch} />
-      <DigitButton digit="." dispatch={dispatch} />
-      <DigitButton digit="0" dispatch={dispatch} />
-      <button
-        className="span-two"
-        onClick={() => dispatch({ type: ACTIONS.EVALUATE })}
-      >
-        =
-      </button>
     </div>
   )
 }
